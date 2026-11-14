@@ -1,0 +1,10 @@
+node_modules/
+lib/
+output/
+*.tgz
+_integration/
+data/
+coverage/
+*.log
+*.bak
+*.tsbuildinfo

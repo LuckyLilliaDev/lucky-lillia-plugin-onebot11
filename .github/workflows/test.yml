@@ -1,0 +1,125 @@
+name: Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      ntqq_repository:
+        description: NTQQ source repository
+        type: string
+        default: LuckyLilliaDev/lucky-lillia-plugin-ntqq-protocol
+      ntqq_ref:
+        description: NTQQ source ref
+        type: string
+        default: main
+      bot_repository:
+        description: Bot host repository for real QQ integration tests
+        type: string
+        default: LuckyLilliaDev/LuckyLilliaBot
+      bot_ref:
+        description: Bot host ref supporting external protocol plugins
+        type: string
+        default: V9
+      run_e2e:
+        description: Run real QQ tests on the configured self-hosted runner
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Checkout NTQQ source
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ inputs.ntqq_repository || vars.NTQQ_REPOSITORY || 'LuckyLilliaDev/lucky-lillia-plugin-ntqq-protocol' }}
+          ref: ${{ inputs.ntqq_ref || vars.NTQQ_REF || 'main' }}
+          path: _integration/ntqq
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Build and test the NTQQ public API
+        working-directory: _integration/ntqq
+        run: npm ci && npm run check && npm test && npm run build
+      - name: Build and test OneBot with this NTQQ source
+        run: |
+          npm ci
+          node scripts/use-ntqq.mjs _integration/ntqq
+          npm run check
+          npm test
+          npm run build
+          npm pack --dry-run --ignore-scripts
+
+  native-e2e:
+    if: github.event_name == 'workflow_dispatch' && inputs.run_e2e
+    needs: [unit-test]
+    runs-on: [self-hosted, llbot-test]
+    env:
+      BOT_DIR: ${{ github.workspace }}/_integration/bot
+      NTQQ_PLUGIN_DIR: ${{ github.workspace }}/_integration/ntqq
+      FFMPEG_PLUGIN_DIR: ${{ github.workspace }}/_integration/ffmpeg
+      E2E_ROOT: ${{ github.workspace }}/output/onebot-e2e
+      QQ_BASE_IMAGE: ${{ vars.QQ_BASE_IMAGE }}
+    steps:
+      - name: Cleanup previous output
+        run: sudo rm -rf -- "$GITHUB_WORKSPACE/output/onebot-e2e"
+      - uses: actions/checkout@v4
+      - name: Checkout NTQQ source
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ inputs.ntqq_repository || vars.NTQQ_REPOSITORY || 'LuckyLilliaDev/lucky-lillia-plugin-ntqq-protocol' }}
+          ref: ${{ inputs.ntqq_ref || vars.NTQQ_REF || 'main' }}
+          path: _integration/ntqq
+          persist-credentials: false
+      - name: Checkout Bot host
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ inputs.bot_repository || vars.BOT_REPOSITORY || 'LuckyLilliaDev/LuckyLilliaBot' }}
+          ref: ${{ inputs.bot_ref || vars.BOT_REF || 'V9' }}
+          path: _integration/bot
+          persist-credentials: false
+      - name: Checkout optional media plugin for the complete API suite
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ vars.FFMPEG_REPOSITORY || 'LuckyLilliaDev/lucky-lillia-plugin-ffmpeg' }}
+          ref: ${{ vars.FFMPEG_REF || 'main' }}
+          path: _integration/ffmpeg
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Build Bot host
+        working-directory: _integration/bot
+        run: |
+          corepack enable
+          yarn install --no-immutable
+          npm install --prefix src/plugin/internal/service/webui/FE
+          npm run build
+          npm run build-webui
+      - name: Build plugins and fixtures
+        run: bash scripts/native-e2e.sh prepare
+      - name: Build QQ host image
+        run: bash scripts/native-e2e.sh build
+      - name: Start QQ hosts
+        run: bash scripts/native-e2e.sh start
+      - name: Wait for both QQ accounts
+        run: bash scripts/native-e2e.sh wait
+      - name: Run integration suite
+        run: bash scripts/native-e2e.sh test
+      - name: Restore test hosts
+        if: always()
+        run: bash scripts/native-e2e.sh stop
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: onebot-native-e2e-report
+          path: output/onebot-e2e/api/test-report.html
+          retention-days: 30

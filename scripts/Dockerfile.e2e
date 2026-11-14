@@ -1,0 +1,4 @@
+FROM node:24-bookworm-slim
+# Generates fresh upload fixtures only. Bot media actions use the optional native FFmpeg plugin.
+RUN apt-get update && apt-get install -y --no-install-recommends ffmpeg fonts-dejavu-core \
+    && rm -rf /var/lib/apt/lists/*
