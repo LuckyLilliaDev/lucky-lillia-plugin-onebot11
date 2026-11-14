@@ -1,0 +1,156 @@
+name: Publish to npm
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Build, test and pack without publishing
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-npm
+  cancel-in-progress: false
+
+env:
+  NPM_CONFIG_REGISTRY: https://registry.npmjs.org
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    outputs:
+      filename: ${{ steps.pack.outputs.filename }}
+      integrity: ${{ steps.pack.outputs.integrity }}
+      version: ${{ steps.pack.outputs.version }}
+      npm_tag: ${{ steps.pack.outputs.npm_tag }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Checkout the NTQQ public API used for this release
+        uses: actions/checkout@v7
+        with:
+          repository: LuckyLilliaDev/lucky-lillia-plugin-ntqq-protocol
+          ref: cea358c3db1f7c639ba30450939212d338e4576e
+          path: _integration/ntqq
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            _integration/ntqq/package-lock.json
+      - name: Validate release metadata
+        run: node scripts/release.mjs metadata
+      - name: Install npm with OIDC support
+        run: npm install --global npm@11.16.0 --ignore-scripts --registry=https://registry.npmjs.org
+      - name: Build the pinned NTQQ public API
+        working-directory: _integration/ntqq
+        run: |
+          npm ci --ignore-scripts
+          npm run check
+          npm test
+          npm run build
+      - name: Install dependencies
+        run: |
+          npm ci --ignore-scripts
+          node scripts/use-ntqq.mjs _integration/ntqq
+      - name: Check, test and build OneBot
+        run: |
+          npm run check
+          npm test
+          npm run build
+      - name: Pack the tested build
+        id: pack
+        run: |
+          npm pack --ignore-scripts --json --pack-destination "$RUNNER_TEMP" > "$RUNNER_TEMP/onebot-pack.json"
+          node scripts/release.mjs pack "$RUNNER_TEMP/onebot-pack.json"
+      - name: Upload the verified package
+        uses: actions/upload-artifact@v7
+        with:
+          name: onebot-npm-package
+          path: ${{ runner.temp }}/${{ steps.pack.outputs.filename }}
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
+
+  publish:
+    if: github.event_name != 'workflow_dispatch' || !inputs.dry_run
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: onebot-npm-package
+          path: package
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Install npm with OIDC support
+        run: npm install --global npm@11.16.0 --ignore-scripts --registry=https://registry.npmjs.org
+      - name: Verify the artifact and reject an existing version
+        env:
+          PACKAGE_FILENAME: ${{ needs.build.outputs.filename }}
+          PACKAGE_INTEGRITY: ${{ needs.build.outputs.integrity }}
+          PACKAGE_VERSION: ${{ needs.build.outputs.version }}
+        run: |
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict'
+          import { createHash } from 'node:crypto'
+          import { readFileSync } from 'node:fs'
+          import path from 'node:path'
+          const { PACKAGE_FILENAME: filename, PACKAGE_INTEGRITY: integrity, PACKAGE_VERSION: version } = process.env
+          assert.equal(filename, 'luckylillia-plugin-onebot11-' + version + '.tgz')
+          const tarball = readFileSync(path.join('package', filename))
+          assert.equal('sha512-' + createHash('sha512').update(tarball).digest('base64'), integrity, 'Artifact changed after verification')
+          const response = await fetch('https://registry.npmjs.org/@luckylillia%2fplugin-onebot11/' + encodeURIComponent(version), { signal: AbortSignal.timeout(30_000) })
+          if (response.ok) throw new Error('Version ' + version + ' is already published; increment package.json and package-lock.json before releasing')
+          if (response.status !== 404) throw new Error('npm registry check failed: HTTP ' + response.status)
+          NODE
+      - name: Publish with npm trusted publishing
+        env:
+          PACKAGE_FILENAME: ${{ needs.build.outputs.filename }}
+          NPM_TAG: ${{ needs.build.outputs.npm_tag }}
+        run: npm publish "./package/$PACKAGE_FILENAME" --ignore-scripts --provenance --access public --tag "$NPM_TAG" --registry=https://registry.npmjs.org
+      - name: Verify the public version, tag and integrity
+        env:
+          PACKAGE_INTEGRITY: ${{ needs.build.outputs.integrity }}
+          PACKAGE_VERSION: ${{ needs.build.outputs.version }}
+          NPM_TAG: ${{ needs.build.outputs.npm_tag }}
+        run: |
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict'
+          const { PACKAGE_VERSION: version, PACKAGE_INTEGRITY: integrity, NPM_TAG: tag } = process.env
+          const registry = 'https://registry.npmjs.org/@luckylillia%2fplugin-onebot11/'
+          const request = ref => fetch(registry + encodeURIComponent(ref), { signal: AbortSignal.timeout(30_000), headers: { 'cache-control': 'no-cache' } })
+          for (let attempt = 0; attempt < 6; attempt++) {
+            const response = await request(version)
+            if (response.ok) {
+              const published = await response.json()
+              assert.equal(published.name, '@luckylillia/plugin-onebot11')
+              assert.equal(published.version, version)
+              assert.equal(published.dist?.integrity, integrity, 'Public package differs from the checked archive')
+              const tagged = await request(tag)
+              if (tagged.ok && (await tagged.json()).version === version) {
+                console.log('Published and verified ' + published.name + '@' + version + ' (' + tag + ')')
+                process.exit(0)
+              }
+              if (!tagged.ok && tagged.status !== 404) throw new Error('npm tag verification failed: HTTP ' + tagged.status)
+            } else if (response.status !== 404) throw new Error('npm version verification failed: HTTP ' + response.status)
+            if (attempt < 5) await new Promise(resolve => setTimeout(resolve, 15_000))
+          }
+          throw new Error('npm accepted the publish command, but the version/tag is not public yet. Check npm Staged Packages/automated review before retrying; do not republish this version.')
+          NODE

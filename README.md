@@ -53,6 +53,23 @@ npm run build
 
 `test/unit` 使用模拟账号和本机临时端口验证协议，无需启动 QQ。`test/api` 是需要真实账号、好友和群配置的手动联调套件，不会在 `npm test` 中执行。
 
+## 自动发布到 npm
+
+`.github/workflows/publish.yml` 使用 GitHub Actions 的 OIDC 身份发布，无需设置 npm Token。先在 npm 包 `@luckylillia/plugin-onebot11` 的 **Settings → Trusted Publisher** 中选择 GitHub Actions，填写：
+
+| 字段 | 值 |
+| --- | --- |
+| Organization or user | `LuckyLilliaDev` |
+| Repository | `lucky-lillia-plugin-onebot11` |
+| Workflow filename | `publish.yml` |
+| Environment name | 留空 |
+
+更新 `package.json` 与 `package-lock.json` 的版本并提交后，推送同名的 `v<版本号>` 标签，例如 `v1.0.2`，即可触发发布。标签必须与包版本完全一致，已发布的版本不能覆盖；稳定版本发布到 `latest`，带预发布后缀的版本发布到 `next`。也可以在 Actions 的 **Publish to npm → Run workflow** 中选择 `main`；默认勾选 `dry_run`，只检查、测试、构建并上传 `.tgz` 产物，取消勾选才会发布当前版本。
+
+发布 CI 固定使用 NTQQ 提交 `cea358c3db1f7c639ba30450939212d338e4576e`（1.0.1）构建公开 API，不受其 npm 暂存审核或 `main` 后续改动影响；需要采用新的 NTQQ API 时更新工作流中的该提交并验证。NTQQ 只链接到开发依赖目录，不会写入包清单或进入 OneBot 发布包。CI 仅运行模拟账号的单元测试，不启动真实 QQ。
+
+校验通过的同一个 tarball 会作为 Actions artifact 保存，并由单独的发布任务校验 SHA-512 后以公开包和 provenance 发布。发布后还会检查 npm 的公开版本、tag 和包校验值；如果 npm 仍处于暂存审核，任务会明确报错，需等待自动审核结束再到 npm 的 **Staged Packages** 批准，不要直接重发同一个版本。
+
 ## CI 与真实账号集成测试
 
 `.github/workflows/test.yml` 在提交和 PR 时构建 NTQQ 源码，再检查、测试和构建 OneBot。默认使用 `LuckyLilliaDev/lucky-lillia-plugin-ntqq-protocol` 的 `main` 分支，可用仓库变量 `NTQQ_REPOSITORY` / `NTQQ_REF` 指定源码仓库和版本；手动运行工作流时可以填写对应输入。
