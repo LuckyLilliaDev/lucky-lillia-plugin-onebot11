@@ -9,7 +9,7 @@ import {
   ConfigFormatError,
   ConfigValidationError,
   UnifiedConfigLoader,
-} from '../../test-framework/src/index.js'
+} from '../framework/index.js'
 
 export { ConfigNotFoundError, ConfigFormatError, ConfigValidationError }
 

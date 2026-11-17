@@ -3,7 +3,6 @@ import { Loader2 } from 'lucide-react'
 import { usePluginConfig, type WebUIPlugin } from '@luckylillia/plugin-sdk/webui'
 import type { OB11Config } from '../config'
 import Connections from './Connections'
-import MusicCardSign from './MusicCardSign'
 
 export const name = '@luckylillia/plugin-onebot11'
 
@@ -19,7 +18,6 @@ const OneBotSettings: React.FC = () => {
         // The page saves on every add, delete and toggle; each save reloads, so the next one carries a fresh rev
         onSave={next => { void save(next ?? value) }}
       />
-      <MusicCardSign />
     </div>
   )
 }

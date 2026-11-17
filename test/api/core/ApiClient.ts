@@ -1,12 +1,12 @@
 import axios, { AxiosInstance, AxiosError } from 'axios';
 import WebSocket from 'ws';
-import { ActionName } from '../../../src/plugin/internal/adapter/onebot11/action/types.js';
+import { ActionName } from '@luckylillia/plugin-nt-protocol/onebot';
 import {
   IApiClient,
   AccountConnectionConfig,
   NetworkError,
   TimeoutError,
-} from '../../test-framework/src/index.js';
+} from '../framework/index.js';
 
 // 兼容旧 import
 export { NetworkError, TimeoutError };

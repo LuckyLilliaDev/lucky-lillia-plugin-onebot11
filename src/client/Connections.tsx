@@ -6,6 +6,7 @@ import type {
 } from '../config';
 import { Radio, Wifi, Globe, Send, X, Settings, Plus, Trash2, Edit2, Eye, EyeOff, ExternalLink } from 'lucide-react';
 import EventFilterEditor from './EventFilterEditor';
+import MusicCardSign from './MusicCardSign';
 
 type ConnectConfig = OB11Config['connect'][number];
 
@@ -66,7 +67,7 @@ const Connections: React.FC<OneBotConfigProps> = ({ config, onChange, onSave }) 
     if (!selectedAdapter) return;
 
     // 检查：如果监听所有地址且是 ws/http 类型，token 必须设置
-    const needsTokenValidation = selectedAdapter.type === 'ws' || selectedAdapter.type === 'http';
+    const needsTokenValidation = selectedAdapter.enable && (selectedAdapter.type === 'ws' || selectedAdapter.type === 'http');
     const adapterHost = (selectedAdapter as WsConnectConfig | HttpConnectConfig).host;
     const isListenAll = !adapterHost || adapterHost === '0.0.0.0' || adapterHost === '::';
     if (needsTokenValidation && isListenAll && !selectedAdapter.token?.trim()) {
@@ -150,23 +151,26 @@ const Connections: React.FC<OneBotConfigProps> = ({ config, onChange, onSave }) 
     <div className="space-y-6">
       {/* 总开关 */}
       <div className="card p-6">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-12 h-12 rounded-xl gradient-primary-br flex items-center justify-center">
+        <div className="flex flex-wrap items-center gap-3">
+          <div className="w-12 h-12 rounded-xl gradient-primary-br flex items-center justify-center flex-shrink-0">
             <Radio size={24} className="text-white" />
           </div>
-          <div className="flex-1">
+          <div className="flex-1 min-w-48">
             <h3 className="text-lg font-semibold text-theme">OneBot 11 协议</h3>
             <p className="text-sm text-theme-secondary">仅支持 NTQQ 协议端；启用开关在插件页的卡片上</p>
           </div>
-          <a
-            href="https://www.luckylillia.com/guide/develop#onebot11-%E5%8D%8F%E8%AE%AE"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-pink-500 hover:bg-pink-50 dark:hover:bg-pink-900/30 rounded-lg transition-colors"
-          >
-            <ExternalLink size={16} />
-            文档
-          </a>
+          <div className="ml-auto flex items-center gap-1">
+            <MusicCardSign />
+            <a
+              href="https://www.luckylillia.com/guide/develop#onebot11-%E5%8D%8F%E8%AE%AE"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-pink-500 hover:bg-pink-50 dark:hover:bg-pink-900/30 rounded-lg transition-colors"
+            >
+              <ExternalLink size={16} />
+              文档
+            </a>
+          </div>
         </div>
       </div>
 

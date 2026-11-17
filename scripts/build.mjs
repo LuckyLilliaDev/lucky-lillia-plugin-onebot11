@@ -31,6 +31,7 @@ const styled = await postcss([tailwind({ base: root, optimize: true })]).process
 await fs.writeFile(path.join(root, 'lib/client/style.css'), styled.css)
 await fs.writeFile(path.join(root, 'lib/client/index.js'), `import apply from './module.js'
 export default function(ctx) {
+  if (ctx.style) { ctx.style('utilities', ${JSON.stringify(styled.css)}, { scope: 'plugin', when: 'loaded' }); return apply(ctx) }
   const style = document.createElement('link')
   style.rel = 'stylesheet'
   style.href = new URL('./style.css', import.meta.url).href

@@ -8,3 +8,6 @@ coverage/
 *.log
 *.bak
 *.tsbuildinfo
+test/api/config/test.config.json
+test/api/test-report.html
+test/api/tests/media/generated/

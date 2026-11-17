@@ -1,6 +1,6 @@
 {
   "name": "@luckylillia/plugin-onebot11",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "description": "OneBot 11 HTTP and WebSocket adapter for LuckyLillia NTQQ",
   "main": "./lib/index.js",

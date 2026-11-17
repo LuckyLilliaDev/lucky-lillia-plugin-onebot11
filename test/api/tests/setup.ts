@@ -16,7 +16,7 @@ export interface MessageTestContext {
 }
 
 export async function setupMessageTest(): Promise<MessageTestContext> {
-  const config = ConfigLoader.load(path.resolve(__dirname, '../config/test.config.json'));
+  const config = ConfigLoader.load(process.env.ONEBOT_TEST_CONFIG ?? path.resolve(__dirname, '../config/test.config.json'));
   const testTimeout = config.timeout || 30000;
   const accountManager = new AccountManager(config);
   const twoAccountTest = new TwoAccountTest(accountManager);
@@ -38,7 +38,7 @@ export async function setupMessageTest(): Promise<MessageTestContext> {
 }
 
 export function teardownMessageTest(context: MessageTestContext): void {
-  context.twoAccountTest.stopAllListeners();
+  context?.twoAccountTest.stopAllListeners();
 }
 
 export function clearQueues(context: MessageTestContext): void {

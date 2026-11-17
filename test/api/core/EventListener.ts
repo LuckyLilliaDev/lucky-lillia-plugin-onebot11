@@ -2,8 +2,8 @@ import WebSocket from 'ws';
 import axios from 'axios';
 import { isDeepStrictEqual } from 'node:util';
 import { ApiClient, TimeoutError } from './ApiClient.js';
-import { IApiClient, IEventListener } from '../../test-framework/src/index.js';
-import type { OB11Event } from '../../../src/plugin/internal/adapter/onebot11/event/index.js';
+import { IApiClient, IEventListener } from '../framework/index.js';
+import type { OB11Event } from '@luckylillia/plugin-nt-protocol/onebot';
 
 export interface EventFilter {
   post_type?: string;

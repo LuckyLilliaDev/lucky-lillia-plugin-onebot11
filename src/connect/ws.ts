@@ -249,6 +249,9 @@ class OB11WebSocket {
     let receive: { action: ActionName | null, params: unknown, echo?: unknown } = { action: null, params: {} }
     try {
       receive = JSON.parse(data.toString())
+      if (!receive || typeof receive !== 'object' || Array.isArray(receive) || typeof receive.action !== 'string') {
+        throw new Error('请求必须是包含 action 字符串的 JSON 对象')
+      }
       this.ctx.logger.info('收到正向 Websocket 消息', receive)
     } catch (error) {
       const echo = extractEcho(toBuffer(data))
@@ -389,6 +392,9 @@ class OB11WebSocketReverse {
     let receive: { action: ActionName | null, params: unknown, echo?: unknown } = { action: null, params: {} }
     try {
       receive = JSON.parse(data.toString())
+      if (!receive || typeof receive !== 'object' || Array.isArray(receive) || typeof receive.action !== 'string') {
+        throw new Error('请求必须是包含 action 字符串的 JSON 对象')
+      }
       this.ctx.logger.info('收到反向 Websocket 消息', receive)
     } catch (error) {
       const echo = extractEcho(toBuffer(data))

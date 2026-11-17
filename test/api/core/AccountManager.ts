@@ -1,6 +1,6 @@
 import { ApiClient } from './ApiClient.js'
 import { TestConfig } from '../config/ConfigLoader.js'
-import { AccountManager as FrameworkAccountManager } from '../../test-framework/src/index.js'
+import { AccountManager as FrameworkAccountManager } from '../framework/index.js'
 
 export class AccountManager extends FrameworkAccountManager<ApiClient> {
   constructor(config: TestConfig) {
