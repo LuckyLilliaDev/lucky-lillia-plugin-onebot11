@@ -1,6 +1,6 @@
 ﻿import { setupMessageTest, teardownMessageTest, MessageTestContext, sleep } from '../setup'
 import { Assertions } from '@/utils/Assertions';
-import { ActionName } from '@luckylillia/plugin-nt-protocol/onebot';
+import { ActionName } from '@luckylillia-dev/plugin-nt-protocol/onebot';
 import { MediaPaths } from '@/tests/media'
 
 describe('get_private_file_url - 获取私聊文件 URL', () => {

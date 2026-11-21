@@ -1,5 +1,5 @@
-import { OB11Message } from '@luckylillia/plugin-nt-protocol/onebot'
-import { OB11BaseEvent } from '@luckylillia/plugin-nt-protocol/onebot'
+import { OB11Message } from '@luckylillia-dev/plugin-nt-protocol/onebot'
+import { OB11BaseEvent } from '@luckylillia-dev/plugin-nt-protocol/onebot'
 
 type PostEventType = OB11Message | OB11BaseEvent
 

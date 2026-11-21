@@ -1,20 +1,35 @@
 {
-  "name": "@luckylillia/plugin-onebot11",
-  "version": "1.0.1",
+  "name": "@luckylillia-dev/plugin-onebot11",
+  "version": "1.0.2",
   "type": "module",
   "description": "OneBot 11 HTTP and WebSocket adapter for LuckyLillia NTQQ",
   "main": "./lib/index.js",
   "types": "./lib/types/index.d.ts",
   "exports": {
-    ".": { "types": "./lib/types/index.d.ts", "default": "./lib/index.js" },
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
     "./package.json": "./package.json"
   },
-  "files": ["lib", "README.md", "LICENSE"],
+  "files": [
+    "lib",
+    "README.md",
+    "LICENSE"
+  ],
   "author": "LuckyLilliaDev",
-  "repository": { "type": "git", "url": "git+https://github.com/LuckyLilliaDev/lucky-lillia-plugin-onebot11.git" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LuckyLilliaDev/lucky-lillia-plugin-onebot11.git"
+  },
   "license": "GPL-2.0",
-  "engines": { "node": ">=22.15" },
-  "keywords": ["luckylillia-plugin", "onebot11"],
+  "engines": {
+    "node": ">=22.15"
+  },
+  "keywords": [
+    "luckylillia-plugin",
+    "onebot11"
+  ],
   "scripts": {
     "build": "node scripts/build.mjs",
     "check": "tsc --noEmit",
@@ -28,8 +43,8 @@
     "ws": "^8.21.3"
   },
   "peerDependencies": {
-    "@luckylillia/plugin-sdk": "^1.0.1",
-    "@luckylillia/plugin-nt-protocol": "^1.0.0",
+    "@luckylillia-dev/plugin-sdk": "^1.0.1",
+    "@luckylillia-dev/plugin-nt-protocol": "^1.0.0",
     "cordis": "4.0.0-rc.11",
     "cosmokit": "^1.8.1",
     "schemastery": "^3.18.0",
@@ -37,12 +52,18 @@
     "react-dom": "^19.0.0"
   },
   "peerDependenciesMeta": {
-    "@luckylillia/plugin-nt-protocol": { "optional": true },
-    "react": { "optional": true },
-    "react-dom": { "optional": true }
+    "@luckylillia-dev/plugin-nt-protocol": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    }
   },
   "devDependencies": {
-    "@luckylillia/plugin-sdk": "^1.0.1",
+    "@luckylillia-dev/plugin-sdk": "npm:@luckylillia/plugin-sdk@^1.0.1",
     "@types/node": "^24.12.4",
     "@types/ws": "^8.18.1",
     "@types/react": "^19.0.0",
@@ -60,17 +81,42 @@
     "typescript": "^5.9.3",
     "vitest": "^4.1.11"
   },
-  "publishConfig": { "access": "public", "registry": "https://registry.npmjs.org" },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
   "llbot": {
     "category": "adapter",
     "title": "OneBot 11",
     "icon": "radio",
     "description": "通过 NTQQ 提供 OneBot 11 HTTP、正向和反向 WebSocket、HTTP POST 上报。",
-    "dependencies": { "@luckylillia/plugin-nt-protocol": "^1.0.0" },
+    "dependencies": {
+      "@luckylillia-dev/plugin-nt-protocol": "^1.0.0"
+    },
     "service": {
-      "implements": ["onebot"],
-      "required": ["ntOnebot", "qqProtocol", "app", "store", "ntUserApi", "ntFriendApi", "ntGroupApi", "ntMsgApi", "ntFileApi", "ntSystemApi", "ntWebApi"],
-      "labels": { "ntOnebot": "NTQQ 账号接口", "qqProtocol": "NTQQ 协议", "app": "NTQQ 账号登录", "store": "NTQQ 消息缓存", "onebot": "OneBot 11" }
+      "implements": [
+        "onebot"
+      ],
+      "required": [
+        "ntOnebot",
+        "qqProtocol",
+        "app",
+        "store",
+        "ntUserApi",
+        "ntFriendApi",
+        "ntGroupApi",
+        "ntMsgApi",
+        "ntFileApi",
+        "ntSystemApi",
+        "ntWebApi"
+      ],
+      "labels": {
+        "ntOnebot": "NTQQ 账号接口",
+        "qqProtocol": "NTQQ 协议",
+        "app": "NTQQ 账号登录",
+        "store": "NTQQ 消息缓存",
+        "onebot": "OneBot 11"
+      }
     },
     "webui": "./lib/client/index.js"
   }

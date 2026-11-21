@@ -2,7 +2,7 @@
 
 import { setupMessageTest, teardownMessageTest, MessageTestContext } from '../setup';
 import { Assertions } from '@/utils/Assertions';
-import { ActionName } from '@luckylillia/plugin-nt-protocol/onebot';
+import { ActionName } from '@luckylillia-dev/plugin-nt-protocol/onebot';
 
 describe.skip('set_group_add_request - 处理加群请求', () => {
   let context: MessageTestContext;

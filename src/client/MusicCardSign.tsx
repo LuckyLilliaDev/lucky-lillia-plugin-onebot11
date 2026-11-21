@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useId, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Loader2, Settings2, X } from 'lucide-react'
-import { usePluginContext } from '@luckylillia/plugin-sdk/webui'
+import { usePluginContext } from '@luckylillia-dev/plugin-sdk/webui'
 
 const DEFAULT_URL = 'https://ss.xingzhige.com/music_card/card'
 

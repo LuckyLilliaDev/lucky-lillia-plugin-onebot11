@@ -1,8 +1,8 @@
 /** send_forward_msg 用 message_type 区分群聊 / 私聊, 不同于 send_group_forward_msg / send_private_forward_msg */
 import { setupMessageTest, teardownMessageTest, MessageTestContext } from '../setup';
 import { Assertions } from '@/utils/Assertions';
-import { ActionName } from '@luckylillia/plugin-nt-protocol/onebot';
-import { OB11MessageDataType } from '@luckylillia/plugin-nt-protocol/onebot';
+import { ActionName } from '@luckylillia-dev/plugin-nt-protocol/onebot';
+import { OB11MessageDataType } from '@luckylillia-dev/plugin-nt-protocol/onebot';
 
 describe('send_forward_msg - 通用合并转发', () => {
   let context: MessageTestContext;

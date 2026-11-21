@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import type { ActionHost } from '@luckylillia/plugin-nt-protocol/onebot'
-import { initActionMap } from '@luckylillia/plugin-nt-protocol/onebot'
+import type { ActionHost } from '@luckylillia-dev/plugin-nt-protocol/onebot'
+import { initActionMap } from '@luckylillia-dev/plugin-nt-protocol/onebot'
 
 const io = vi.hoisted(() => ({ writeFile: vi.fn(), unlink: vi.fn(), stat: vi.fn() }))
 vi.mock('node:fs/promises', () => io)
@@ -32,7 +32,7 @@ describe('OneBot get_record without FFmpeg', () => {
   it('returns install guidance for a required conversion without creating temporary files', async () => {
     const response = await initActionMap(adapter).get('get_record')!.handle({ file: 'cached', out_format: 'mp3' }, {} as never)
     expect(response.status).toBe('failed')
-    expect(response.message).toContain('lucky-lillia-plugin-ffmpeg')
+    expect(response.message).toContain('@luckylillia-dev/plugin-ffmpeg')
     expect(response.message).toContain('安装并启用')
     expect(io.writeFile).not.toHaveBeenCalled()
   })
@@ -42,7 +42,7 @@ describe('OneBot get_record without FFmpeg', () => {
     vi.stubGlobal('fetch', vi.fn(async () => new Response(silk)))
     const response = await initActionMap(adapter).get('get_record')!.handle({ file: 'cached', out_format: 'wav' }, {} as never)
     expect(response.status).toBe('failed')
-    expect(response.message).toContain('lucky-lillia-plugin-ffmpeg')
+    expect(response.message).toContain('@luckylillia-dev/plugin-ffmpeg')
     expect(io.writeFile).toHaveBeenCalledOnce()
     expect(io.unlink).toHaveBeenCalledExactlyOnceWith(io.writeFile.mock.calls[0][0])
   })

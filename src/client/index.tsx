@@ -1,10 +1,10 @@
 import React from 'react'
 import { Loader2 } from 'lucide-react'
-import { usePluginConfig, type WebUIPlugin } from '@luckylillia/plugin-sdk/webui'
+import { usePluginConfig, type WebUIPlugin } from '@luckylillia-dev/plugin-sdk/webui'
 import type { OB11Config } from '../config'
 import Connections from './Connections'
 
-export const name = '@luckylillia/plugin-onebot11'
+export const name = '@luckylillia-dev/plugin-onebot11'
 
 const OneBotSettings: React.FC = () => {
   const { value, setValue, save, error } = usePluginConfig<OB11Config>()

@@ -1,6 +1,6 @@
 ﻿import { setupMessageTest, teardownMessageTest, MessageTestContext } from '../setup';
 import { Assertions } from '@/utils/Assertions';
-import { ActionName } from '@luckylillia/plugin-nt-protocol/onebot';
+import { ActionName } from '@luckylillia-dev/plugin-nt-protocol/onebot';
 
 describe('get_robot_uin_range - 获取机器人 UIN 范围', () => {
   let context: MessageTestContext;

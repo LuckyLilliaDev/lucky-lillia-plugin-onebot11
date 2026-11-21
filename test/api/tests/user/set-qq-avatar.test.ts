@@ -2,7 +2,7 @@
 
 import { setupMessageTest, teardownMessageTest, MessageTestContext } from '../setup';
 import { Assertions } from '@/utils/Assertions';
-import { ActionName } from '@luckylillia/plugin-nt-protocol/onebot';
+import { ActionName } from '@luckylillia-dev/plugin-nt-protocol/onebot';
 import { MediaPaths } from '@/tests/media';
 
 describe('set_qq_avatar - 设置 QQ 头像', () => {

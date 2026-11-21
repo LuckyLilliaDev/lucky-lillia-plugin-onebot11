@@ -1,12 +1,12 @@
-import { OB11Message, OB11MessageData, OB11MessageDataType } from '@luckylillia/plugin-nt-protocol/onebot'
-import { OB11FriendRequestEvent } from '@luckylillia/plugin-nt-protocol/onebot'
+import { OB11Message, OB11MessageData, OB11MessageDataType } from '@luckylillia-dev/plugin-nt-protocol/onebot'
+import { OB11FriendRequestEvent } from '@luckylillia-dev/plugin-nt-protocol/onebot'
 import {
   OB11GroupRequestAddEvent,
   OB11GroupRequestEvent,
   OB11GroupRequestInviteBotEvent,
-} from '@luckylillia/plugin-nt-protocol/onebot'
-import { transformOutgoingSegments } from '@luckylillia/plugin-nt-protocol/onebot'
-import { message2List, createPeer, CreatePeerMode, decodeGroupRequestFlag } from '@luckylillia/plugin-nt-protocol/onebot'
+} from '@luckylillia-dev/plugin-nt-protocol/onebot'
+import { transformOutgoingSegments } from '@luckylillia-dev/plugin-nt-protocol/onebot'
+import { message2List, createPeer, CreatePeerMode, decodeGroupRequestFlag } from '@luckylillia-dev/plugin-nt-protocol/onebot'
 import { isNullable } from 'cosmokit'
 import { Context } from 'cordis'
 

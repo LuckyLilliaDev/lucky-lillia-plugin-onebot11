@@ -1,6 +1,6 @@
 ﻿import { setupMessageTest, teardownMessageTest, MessageTestContext } from '../setup';
 import { Assertions } from '@/utils/Assertions';
-import { ActionName } from '@luckylillia/plugin-nt-protocol/onebot';
+import { ActionName } from '@luckylillia-dev/plugin-nt-protocol/onebot';
 
 describe('set_group_msg_mask - 设置群消息屏蔽', () => {
   let context: MessageTestContext;

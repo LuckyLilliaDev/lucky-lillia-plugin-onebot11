@@ -113,7 +113,7 @@ jobs:
           import { readFileSync } from 'node:fs'
           import path from 'node:path'
           const { PACKAGE_FILENAME: filename, PACKAGE_INTEGRITY: integrity, PACKAGE_VERSION: version } = process.env
-          assert.equal(filename, 'luckylillia-plugin-onebot11-' + version + '.tgz')
+          assert.equal(filename, 'luckylillia-dev-plugin-onebot11-' + version + '.tgz')
           const tarball = readFileSync(path.join('package', filename))
           assert.equal('sha512-' + createHash('sha512').update(tarball).digest('base64'), integrity, 'Artifact changed after verification')
           const response = await fetch('https://registry.npmjs.org/@luckylillia%2fplugin-onebot11/' + encodeURIComponent(version), { signal: AbortSignal.timeout(30_000) })
@@ -140,7 +140,7 @@ jobs:
             const response = await request(version)
             if (response.ok) {
               const published = await response.json()
-              assert.equal(published.name, '@luckylillia/plugin-onebot11')
+              assert.equal(published.name, '@luckylillia-dev/plugin-onebot11')
               assert.equal(published.version, version)
               assert.equal(published.dist?.integrity, integrity, 'Public package differs from the checked archive')
               const tagged = await request(tag)

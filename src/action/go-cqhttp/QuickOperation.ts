@@ -1,6 +1,6 @@
-import { BaseAction, Schema } from '@luckylillia/plugin-nt-protocol/onebot'
+import { BaseAction, Schema } from '@luckylillia-dev/plugin-nt-protocol/onebot'
 import { handleQuickOperation, QuickOperation, QuickOperationEvent } from '../../helper/quickOperation'
-import { ActionName } from '@luckylillia/plugin-nt-protocol/onebot'
+import { ActionName } from '@luckylillia-dev/plugin-nt-protocol/onebot'
 
 interface Payload {
   context: QuickOperationEvent,

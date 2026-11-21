@@ -1,7 +1,7 @@
 ﻿import { setupMessageTest, teardownMessageTest, MessageTestContext } from '../setup';
 import { Assertions } from '@/utils/Assertions';
-import { ActionName } from '@luckylillia/plugin-nt-protocol/onebot';
-import { OB11MessageDataType, OB11MessageData } from '@luckylillia/plugin-nt-protocol/onebot';
+import { ActionName } from '@luckylillia-dev/plugin-nt-protocol/onebot';
+import { OB11MessageDataType, OB11MessageData } from '@luckylillia-dev/plugin-nt-protocol/onebot';
 
 describe('get_friend_msg_history - 获取好友消息历史', () => {
   let context: MessageTestContext;

@@ -2,11 +2,11 @@
   OB11MessageText,
   OB11MessageDataType,
   OB11MessageData
-} from '@luckylillia/plugin-nt-protocol/onebot';
+} from '@luckylillia-dev/plugin-nt-protocol/onebot';
 import { setupMessageTest, teardownMessageTest, MessageTestContext } from '../setup';
 import { Assertions } from '@/utils/Assertions';
 import { MediaPaths } from '../media';
-import { ActionName } from '@luckylillia/plugin-nt-protocol/onebot';
+import { ActionName } from '@luckylillia-dev/plugin-nt-protocol/onebot';
 
 describe('send_private_msg - 发送私聊消息', () => {
   let context: MessageTestContext;

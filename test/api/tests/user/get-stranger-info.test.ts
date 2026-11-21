@@ -1,6 +1,6 @@
 ﻿import { setupMessageTest, teardownMessageTest, MessageTestContext } from '../setup';
 import { Assertions } from '@/utils/Assertions';
-import { ActionName } from '@luckylillia/plugin-nt-protocol/onebot';
+import { ActionName } from '@luckylillia-dev/plugin-nt-protocol/onebot';
 
 describe('get_stranger_info - 获取陌生人信息', () => {
   let context: MessageTestContext;

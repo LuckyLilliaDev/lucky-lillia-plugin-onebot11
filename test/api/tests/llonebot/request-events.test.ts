@@ -4,7 +4,7 @@
  */
 
 import { setupMessageTest, teardownMessageTest, MessageTestContext } from '../setup';
-import { ActionName } from '@luckylillia/plugin-nt-protocol/onebot';
+import { ActionName } from '@luckylillia-dev/plugin-nt-protocol/onebot';
 
 describe('request 事件覆盖（占位）', () => {
   let context: MessageTestContext;

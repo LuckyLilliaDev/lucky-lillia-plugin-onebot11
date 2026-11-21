@@ -1,7 +1,7 @@
 /** 改群文件名, 不是改文件夹名 (RenameGroupFileFolder) */
 import { setupMessageTest, teardownMessageTest, MessageTestContext } from '../setup';
 import { Assertions } from '@/utils/Assertions';
-import { ActionName } from '@luckylillia/plugin-nt-protocol/onebot';
+import { ActionName } from '@luckylillia-dev/plugin-nt-protocol/onebot';
 import { MediaPaths } from '@/tests/media';
 
 describe('rename_group_file - 改群文件名', () => {

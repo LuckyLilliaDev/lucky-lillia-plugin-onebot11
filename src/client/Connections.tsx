@@ -1,6 +1,6 @@
 import React, { ReactNode, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { HostInput, usePluginContext } from '@luckylillia/plugin-sdk/webui';
+import { HostInput, usePluginContext } from '@luckylillia-dev/plugin-sdk/webui';
 import type {
   HttpConnectConfig, HttpPostConnectConfig, OB11Config, WsConnectConfig, WsReverseConnectConfig,
 } from '../config';

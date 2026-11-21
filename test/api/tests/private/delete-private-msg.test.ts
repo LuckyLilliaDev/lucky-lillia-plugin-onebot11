@@ -1,6 +1,6 @@
 ﻿import { setupMessageTest, teardownMessageTest, sleep, MessageTestContext } from '../setup';
 import { Assertions } from '../../utils/Assertions';
-import { ActionName } from '@luckylillia/plugin-nt-protocol/onebot';
+import { ActionName } from '@luckylillia-dev/plugin-nt-protocol/onebot';
 
 describe('delete_msg - 撤回私聊消息', () => {
   let context: MessageTestContext;

@@ -1,8 +1,8 @@
 /** 合并转发的边角场景, 纯文本 inline node 在 send-forward-msg.test.ts */
 import { setupMessageTest, teardownMessageTest, MessageTestContext } from '../setup';
 import { Assertions } from '@/utils/Assertions';
-import { ActionName } from '@luckylillia/plugin-nt-protocol/onebot';
-import { OB11MessageDataType, OB11MessageData } from '@luckylillia/plugin-nt-protocol/onebot';
+import { ActionName } from '@luckylillia-dev/plugin-nt-protocol/onebot';
+import { OB11MessageDataType, OB11MessageData } from '@luckylillia-dev/plugin-nt-protocol/onebot';
 import { MediaPaths } from '../media';
 
 describe('OB11 合并转发深度测试', () => {

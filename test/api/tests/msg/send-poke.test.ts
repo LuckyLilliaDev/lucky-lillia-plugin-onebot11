@@ -1,7 +1,7 @@
 /** send_poke 传 group_id 时戳群成员, 否则戳好友 */
 import { setupMessageTest, teardownMessageTest, MessageTestContext } from '../setup';
 import { Assertions } from '@/utils/Assertions';
-import { ActionName } from '@luckylillia/plugin-nt-protocol/onebot';
+import { ActionName } from '@luckylillia-dev/plugin-nt-protocol/onebot';
 
 describe('send_poke - 戳一戳（通用）', () => {
   let context: MessageTestContext;

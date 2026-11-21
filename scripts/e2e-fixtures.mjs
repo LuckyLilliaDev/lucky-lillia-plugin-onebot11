@@ -2,9 +2,9 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 import { pathToFileURL } from 'node:url'
 
-export const NTQQ = '@luckylillia/plugin-nt-protocol'
-export const ONEBOT = '@luckylillia/plugin-onebot11'
-export const FFMPEG = 'lucky-lillia-plugin-ffmpeg'
+export const NTQQ = '@luckylillia-dev/plugin-nt-protocol'
+export const ONEBOT = '@luckylillia-dev/plugin-onebot11'
+export const FFMPEG = '@luckylillia-dev/plugin-ffmpeg'
 
 export function instanceConfig(uin, port, token) {
   if (!/^[1-9][0-9]*$/.test(uin)) throw new Error('Expected a numeric QQ account ID')

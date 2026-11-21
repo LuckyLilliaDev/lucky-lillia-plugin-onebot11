@@ -9,7 +9,7 @@ const pkg = JSON.parse(readFileSync(path.join(root, 'package.json'), 'utf8'))
 const lock = JSON.parse(readFileSync(path.join(root, 'package-lock.json'), 'utf8'))
 
 function validateMetadata() {
-  assert.equal(pkg.name, '@luckylillia/plugin-onebot11')
+  assert.equal(pkg.name, '@luckylillia-dev/plugin-onebot11')
   assert.match(pkg.version, /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*)?$/, 'Use an npm release version without build metadata')
   assert.notEqual(pkg.private, true)
   assert.equal(pkg.repository?.type, 'git')
@@ -53,7 +53,7 @@ switch (process.argv[2]) {
     const [pack] = packs
     assert.equal(pack.name, pkg.name)
     assert.equal(pack.version, pkg.version)
-    assert.equal(pack.filename, 'luckylillia-plugin-onebot11-' + pkg.version + '.tgz')
+    assert.equal(pack.filename, 'luckylillia-dev-plugin-onebot11-' + pkg.version + '.tgz')
     for (const required of ['package.json', 'LICENSE', 'README.md', 'lib/index.js', 'lib/types/index.d.ts', 'lib/types/config.d.ts', 'lib/client/index.js', 'lib/client/module.js', 'lib/client/style.css']) {
       assert.ok(pack.files.some(file => file.path === required && file.size > 0), 'Missing package file: ' + required)
     }

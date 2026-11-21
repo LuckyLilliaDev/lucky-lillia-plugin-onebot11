@@ -1,4 +1,4 @@
-import type { ActionHost, BaseAction } from '@luckylillia/plugin-nt-protocol/onebot'
+import type { ActionHost, BaseAction } from '@luckylillia-dev/plugin-nt-protocol/onebot'
 import { HandleQuickOperation } from './go-cqhttp/QuickOperation'
 import { GetEvent } from './llbot/system/GetEvent'
 

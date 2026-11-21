@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { Plus, Trash2, X, Filter, ChevronDown, ChevronRight, Code, LayoutList } from 'lucide-react'
-import { SelectInput } from '@luckylillia/plugin-sdk/webui'
+import { SelectInput } from '@luckylillia-dev/plugin-sdk/webui'
 
 const FIELD_OPTIONS = [
   { value: 'post_type', label: '事件类型', type: 'select', options: [

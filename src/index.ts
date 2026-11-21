@@ -1,10 +1,10 @@
-import type {} from '@luckylillia/plugin-nt-protocol/contracts'
-import type {} from '@luckylillia/plugin-sdk'
+import type {} from '@luckylillia-dev/plugin-nt-protocol/contracts'
+import type {} from '@luckylillia-dev/plugin-sdk'
 import { Context } from 'cordis'
 import Onebot11Adapter from './adapter'
 import { OB11Schema, validateListeners, type OB11Settings } from './settings'
 
-export const name = '@luckylillia/plugin-onebot11'
+export const name = '@luckylillia-dev/plugin-onebot11'
 export type Config = OB11Settings
 export const Config = OB11Schema
 export const inject = Onebot11Adapter.inject

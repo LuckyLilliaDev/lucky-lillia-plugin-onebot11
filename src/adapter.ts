@@ -1,40 +1,40 @@
 import { Context, Service } from 'cordis'
-import { OB11Entities } from '@luckylillia/plugin-nt-protocol/onebot'
+import { OB11Entities } from '@luckylillia-dev/plugin-nt-protocol/onebot'
 import {
   ChatType,
   GroupNotificationType,
   RawMessage,
-} from '@luckylillia/plugin-nt-protocol/api'
+} from '@luckylillia-dev/plugin-nt-protocol/api'
 import {
   OB11GroupRequestAddEvent,
   OB11GroupRequestInviteBotEvent,
-} from '@luckylillia/plugin-nt-protocol/onebot'
-import { OB11FriendRequestEvent } from '@luckylillia/plugin-nt-protocol/onebot'
-import { GroupDecreaseSubType, OB11GroupDecreaseEvent } from '@luckylillia/plugin-nt-protocol/onebot'
+} from '@luckylillia-dev/plugin-nt-protocol/onebot'
+import { OB11FriendRequestEvent } from '@luckylillia-dev/plugin-nt-protocol/onebot'
+import { GroupDecreaseSubType, OB11GroupDecreaseEvent } from '@luckylillia-dev/plugin-nt-protocol/onebot'
 import { OB11Config } from './config'
 import { OB11WebSocket, OB11WebSocketReverse } from './connect/ws'
 import { OB11Http, OB11HttpPost } from './connect/http'
-import { OB11BaseEvent } from '@luckylillia/plugin-nt-protocol/onebot'
+import { OB11BaseEvent } from '@luckylillia-dev/plugin-nt-protocol/onebot'
 import { initActionMap } from './action'
-import { OB11GroupAdminNoticeEvent } from '@luckylillia/plugin-nt-protocol/onebot'
-import { OB11ProfileLikeEvent } from '@luckylillia/plugin-nt-protocol/onebot'
+import { OB11GroupAdminNoticeEvent } from '@luckylillia-dev/plugin-nt-protocol/onebot'
+import { OB11ProfileLikeEvent } from '@luckylillia-dev/plugin-nt-protocol/onebot'
 import {
   OB11FriendPokeEvent,
   OB11GroupPokeEvent,
-} from '@luckylillia/plugin-nt-protocol/onebot'
-import { OB11GroupDismissEvent } from '@luckylillia/plugin-nt-protocol/onebot'
-import { BaseAction } from '@luckylillia/plugin-nt-protocol/onebot'
+} from '@luckylillia-dev/plugin-nt-protocol/onebot'
+import { OB11GroupDismissEvent } from '@luckylillia-dev/plugin-nt-protocol/onebot'
+import { BaseAction } from '@luckylillia-dev/plugin-nt-protocol/onebot'
 import { cloneObj } from './support'
-import { OB11GroupMsgEmojiLikeEvent } from '@luckylillia/plugin-nt-protocol/onebot'
-import { GroupEssenceEvent } from '@luckylillia/plugin-nt-protocol/onebot'
-import { GroupBanEvent } from '@luckylillia/plugin-nt-protocol/onebot'
-import { OB11GroupTitleEvent } from '@luckylillia/plugin-nt-protocol/onebot'
-import { OB11FriendAddNoticeEvent } from '@luckylillia/plugin-nt-protocol/onebot'
-import { OB11GroupCardEvent } from '@luckylillia/plugin-nt-protocol/onebot'
-import { encodeGroupRequestFlag } from '@luckylillia/plugin-nt-protocol/onebot'
-import { OB11GroupRecallNoticeEvent } from '@luckylillia/plugin-nt-protocol/onebot'
-import { OB11FriendRecallNoticeEvent } from '@luckylillia/plugin-nt-protocol/onebot'
-import { OB11GroupIncreaseEvent } from '@luckylillia/plugin-nt-protocol/onebot'
+import { OB11GroupMsgEmojiLikeEvent } from '@luckylillia-dev/plugin-nt-protocol/onebot'
+import { GroupEssenceEvent } from '@luckylillia-dev/plugin-nt-protocol/onebot'
+import { GroupBanEvent } from '@luckylillia-dev/plugin-nt-protocol/onebot'
+import { OB11GroupTitleEvent } from '@luckylillia-dev/plugin-nt-protocol/onebot'
+import { OB11FriendAddNoticeEvent } from '@luckylillia-dev/plugin-nt-protocol/onebot'
+import { OB11GroupCardEvent } from '@luckylillia-dev/plugin-nt-protocol/onebot'
+import { encodeGroupRequestFlag } from '@luckylillia-dev/plugin-nt-protocol/onebot'
+import { OB11GroupRecallNoticeEvent } from '@luckylillia-dev/plugin-nt-protocol/onebot'
+import { OB11FriendRecallNoticeEvent } from '@luckylillia-dev/plugin-nt-protocol/onebot'
+import { OB11GroupIncreaseEvent } from '@luckylillia-dev/plugin-nt-protocol/onebot'
 
 declare module 'cordis' {
   interface Context {

@@ -1,7 +1,7 @@
 ﻿import { setupMessageTest, teardownMessageTest, MessageTestContext } from '../setup';
 import { Assertions } from '@/utils/Assertions';
-import { ActionName } from '@luckylillia/plugin-nt-protocol/onebot';
-import { OB11MessageDataType, OB11MessageData } from '@luckylillia/plugin-nt-protocol/onebot';
+import { ActionName } from '@luckylillia-dev/plugin-nt-protocol/onebot';
+import { OB11MessageDataType, OB11MessageData } from '@luckylillia-dev/plugin-nt-protocol/onebot';
 
 describe('get_msg - 获取消息', () => {
   let context: MessageTestContext;

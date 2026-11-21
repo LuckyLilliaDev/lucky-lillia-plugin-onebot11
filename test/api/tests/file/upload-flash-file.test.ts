@@ -8,7 +8,7 @@ import { join } from 'node:path'
 import { tmpdir } from 'node:os'
 import { randomBytes } from 'node:crypto'
 import { setupMessageTest, teardownMessageTest, MessageTestContext } from '../setup'
-import { ActionName } from '@luckylillia/plugin-nt-protocol/onebot'
+import { ActionName } from '@luckylillia-dev/plugin-nt-protocol/onebot'
 
 const TEST_TMP_DIR = join(tmpdir(), 'webqq-flash-newfile-tests')
 

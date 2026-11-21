@@ -3,7 +3,7 @@ import axios from 'axios';
 import { isDeepStrictEqual } from 'node:util';
 import { ApiClient, TimeoutError } from './ApiClient.js';
 import { IApiClient, IEventListener } from '../framework/index.js';
-import type { OB11Event } from '@luckylillia/plugin-nt-protocol/onebot';
+import type { OB11Event } from '@luckylillia-dev/plugin-nt-protocol/onebot';
 
 export interface EventFilter {
   post_type?: string;
