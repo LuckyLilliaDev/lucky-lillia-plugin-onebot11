@@ -37,7 +37,7 @@ jobs:
         uses: actions/checkout@v7
         with:
           repository: LuckyLilliaDev/lucky-lillia-plugin-ntqq-protocol
-          ref: cea358c3db1f7c639ba30450939212d338e4576e
+          ref: b15b29e461180c0b7287a6608a0055e91a20da54
           path: _integration/ntqq
           persist-credentials: false
       - uses: actions/setup-node@v7
