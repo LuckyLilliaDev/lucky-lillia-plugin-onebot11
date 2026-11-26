@@ -119,129 +119,17 @@
       }
     },
     "webui": "./lib/client/index.js",
-    "args": {
-      "--onebot-ws-host": {
-        "path": "connect[type=ws].host",
-        "set": {
-          "connect[type=ws].enable": true
-        }
-      },
-      "--onebot-ws-port": {
-        "path": "connect[type=ws].port",
-        "set": {
-          "connect[type=ws].enable": true
-        }
-      },
-      "--onebot-ws-token": {
-        "path": "connect[type=ws].token",
-        "set": {
-          "connect[type=ws].enable": true
-        }
-      },
-      "--onebot-http-host": {
-        "path": "connect[type=http].host",
-        "set": {
-          "connect[type=http].enable": true
-        }
-      },
-      "--onebot-http-port": {
-        "path": "connect[type=http].port",
-        "set": {
-          "connect[type=http].enable": true
-        }
-      },
-      "--onebot-http-token": {
-        "path": "connect[type=http].token",
-        "set": {
-          "connect[type=http].enable": true
-        }
-      },
-      "--onebot-ws-reverse-url": {
-        "path": "connect[type=ws-reverse].url",
-        "set": {
-          "connect[type=ws-reverse].enable": true
-        }
-      },
-      "--onebot-ws-reverse-token": {
-        "path": "connect[type=ws-reverse].token",
-        "set": {
-          "connect[type=ws-reverse].enable": true
-        }
-      },
-      "--onebot-http-post-url": {
-        "path": "connect[type=http-post].url",
-        "set": {
-          "connect[type=http-post].enable": true
-        }
-      },
-      "--onebot-http-post-token": {
-        "path": "connect[type=http-post].token",
-        "set": {
-          "connect[type=http-post].enable": true
-        }
-      }
-    },
-    "env": {
-      "ONEBOT_WS_HOST": {
-        "path": "connect[type=ws].host",
-        "set": {
-          "connect[type=ws].enable": true
-        }
-      },
-      "ONEBOT_WS_PORT": {
-        "path": "connect[type=ws].port",
-        "set": {
-          "connect[type=ws].enable": true
-        }
-      },
-      "ONEBOT_WS_TOKEN": {
-        "path": "connect[type=ws].token",
-        "set": {
-          "connect[type=ws].enable": true
-        }
-      },
-      "ONEBOT_HTTP_HOST": {
-        "path": "connect[type=http].host",
-        "set": {
-          "connect[type=http].enable": true
-        }
-      },
-      "ONEBOT_HTTP_PORT": {
-        "path": "connect[type=http].port",
-        "set": {
-          "connect[type=http].enable": true
-        }
-      },
-      "ONEBOT_HTTP_TOKEN": {
-        "path": "connect[type=http].token",
-        "set": {
-          "connect[type=http].enable": true
-        }
-      },
-      "ONEBOT_WS_REVERSE_URL": {
-        "path": "connect[type=ws-reverse].url",
-        "set": {
-          "connect[type=ws-reverse].enable": true
-        }
-      },
-      "ONEBOT_WS_REVERSE_TOKEN": {
-        "path": "connect[type=ws-reverse].token",
-        "set": {
-          "connect[type=ws-reverse].enable": true
-        }
-      },
-      "ONEBOT_HTTP_POST_URL": {
-        "path": "connect[type=http-post].url",
-        "set": {
-          "connect[type=http-post].enable": true
-        }
-      },
-      "ONEBOT_HTTP_POST_TOKEN": {
-        "path": "connect[type=http-post].token",
-        "set": {
-          "connect[type=http-post].enable": true
-        }
-      }
-    }
+    "launch": [
+      { "field": "connect[type=ws].host", "arg": "--onebot-ws-host", "env": "ONEBOT_WS_HOST", "set": { "connect[type=ws].enable": true } },
+      { "field": "connect[type=ws].port", "arg": "--onebot-ws-port", "env": "ONEBOT_WS_PORT", "set": { "connect[type=ws].enable": true } },
+      { "field": "connect[type=ws].token", "arg": "--onebot-ws-token", "env": "ONEBOT_WS_TOKEN", "set": { "connect[type=ws].enable": true } },
+      { "field": "connect[type=http].host", "arg": "--onebot-http-host", "env": "ONEBOT_HTTP_HOST", "set": { "connect[type=http].enable": true } },
+      { "field": "connect[type=http].port", "arg": "--onebot-http-port", "env": "ONEBOT_HTTP_PORT", "set": { "connect[type=http].enable": true } },
+      { "field": "connect[type=http].token", "arg": "--onebot-http-token", "env": "ONEBOT_HTTP_TOKEN", "set": { "connect[type=http].enable": true } },
+      { "field": "connect[type=ws-reverse].url", "arg": "--onebot-ws-reverse-url", "env": "ONEBOT_WS_REVERSE_URL", "set": { "connect[type=ws-reverse].enable": true } },
+      { "field": "connect[type=ws-reverse].token", "arg": "--onebot-ws-reverse-token", "env": "ONEBOT_WS_REVERSE_TOKEN", "set": { "connect[type=ws-reverse].enable": true } },
+      { "field": "connect[type=http-post].url", "arg": "--onebot-http-post-url", "env": "ONEBOT_HTTP_POST_URL", "set": { "connect[type=http-post].enable": true } },
+      { "field": "connect[type=http-post].token", "arg": "--onebot-http-post-token", "env": "ONEBOT_HTTP_POST_TOKEN", "set": { "connect[type=http-post].enable": true } }
+    ]
   }
 }
